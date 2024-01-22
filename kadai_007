@@ -1,0 +1,33 @@
+#必要なライブラリをインポートする
+import pandas as pd
+import matplotlib.pyplot as plt
+import japanize_matplotlib
+
+#csvファイルを読み込む
+df = pd.read_csv("sample_pandas_6.csv")
+# カテゴリー情報が入った別のCSVファイルを読み込む
+category_df = pd.read_csv('category.csv')
+category_df
+# 商品番号をキーにしてデータを結合
+df = pd.merge(df, category_df[['商品番号', 'カテゴリー']], how='inner', on='商品番号')
+df
+# カテゴリー列の要素の出現頻度をカウント
+category_counts = df['カテゴリー'].value_counts()
+
+# 棒グラフで表示
+category_counts.plot(kind='bar', rot=45, color='skyblue', edgecolor='black')
+
+# グラフのタイトルや軸ラベルを設定
+plt.title('カテゴリーの出現頻度')
+plt.xlabel('カテゴリー')
+plt.ylabel('頻度')
+
+# グラフを表示
+plt.show()
+
+
+# 商品番号ごとに注文数の基本統計量を求める
+order_statistics = df.groupby('商品番号')['注文数'].describe()
+
+# 結果を表示
+print(order_statistics)
