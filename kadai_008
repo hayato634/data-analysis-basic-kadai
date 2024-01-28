@@ -1,0 +1,40 @@
+# load_wine関数をインポート
+from sklearn.datasets import load_wine
+
+# インポートしたload_wine関数を実行し、datasetという変数に代入
+dataset = load_wine()
+dataset
+
+# 説明変数（ワインの成分）を変数Xに、目的変数（ワインの種別）を変数y
+X = dataset.data
+y = dataset.target
+
+# Xとyを、それぞれ学習データとテストデータに分割
+# model_selectionモジュールのtrain_test_split関数を実行することで、分割
+# train_test_split関数をインポート
+from sklearn.model_selection import train_test_split
+
+train_test_split(X, y, test_size=0.3, random_state=5)
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=5)
+
+print(X.shape, X_train.shape, X_test.shape, y.shape, y_train.shape, y_test.shape)
+
+from sklearn.ensemble import RandomForestClassifier
+
+model = RandomForestClassifier(random_state=3)
+# 以下のようにrandom_stateを指定しない場合、最終的に生成される予測モデルが実行毎に異なる可能性があります。
+# これは、モデルの評価結果や予測結果が実行毎に変わってしまう可能性があること意味します。
+
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+y_pred
+
+y_test
+
+from sklearn.metrics import accuracy_score
+
+accuracy_score(y_test, y_pred)
+
+model.score(X_test, y_test)
