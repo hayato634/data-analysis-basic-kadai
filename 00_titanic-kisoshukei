@@ -1,0 +1,178 @@
+#%%
+import pandas as pd 
+import matplotlib.pyplot as plt 
+import japanize_matplotlib
+
+#pandas　最大表示数の設定
+pd.set_option('display.max_columns', 100)
+#%%
+#データを読み込み
+df = pd.read_csv(r"C:\Users\z574z\OneDrive\デスクトップ\samurai課題\10_分類タスク\data\train.csv")
+df.head()
+#データの列・行数を表示
+df.shape
+#データ欠損セルにTrueを入力して、欠損値の個数を表示
+df.isnull().sum()
+
+#%%
+
+df["PassengerId"].unique()
+#flag列を追加し全て１を入力←flagの合計がサンプル数となる
+df["flag"] = 1
+#性別ごとの基礎集計のため、indexはsex,必要データは生存数とサンプル数
+df_pd = pd.pivot_table(df[["Survived", "Sex", "flag"]], index="Sex", aggfunc="sum").reset_index()
+df_pd 
+#生存率を定義→生存数/サンプル数
+df_pd["surv_rate"] = df_pd["Survived"] / df_pd["flag"] *100
+df_pd
+
+#%%
+plt.figure(figsize=(6, 4))
+
+plt.subplot(1, 2, 1)
+plt.bar(df_pd["Sex"], df_pd["surv_rate"])
+plt.xticks(rotation=90)
+plt.xlabel("生存率")
+plt.ylabel("人数")
+
+plt.subplot(1, 2, 2)
+plt.bar(df_pd["Sex"], df_pd["flag"])
+plt.xticks(rotation=90)
+plt.xlabel("サンプル数")
+plt.ylabel("人数")
+
+plt.tight_layout()
+plt.show()
+
+#%%
+
+df_pd = pd.pivot_table(df[["Survived", "Age", "flag"]], index="Age", aggfunc="sum").reset_index()
+df_pd 
+#生存率を定義→生存数/サンプル数
+df_pd["surv_rate"] = df_pd["Survived"] / df_pd["flag"] *100
+df_pd
+
+#%%
+plt.figure(figsize=(6, 4))
+
+plt.subplot(1, 2, 1)
+plt.bar(df_pd["Age"], df_pd["surv_rate"])
+plt.xticks(rotation=90)
+plt.xlabel("生存率")
+plt.ylabel("人数")
+
+plt.subplot(1, 2, 2)
+plt.bar(df_pd["Age"], df_pd["flag"])
+plt.xticks(rotation=90)
+plt.xlabel("サンプル数")
+plt.ylabel("人数")
+
+plt.tight_layout()
+plt.show()
+
+#%%
+
+df_pd = pd.pivot_table(df[["Survived", "Pclass", "flag"]], index="Pclass", aggfunc="sum").reset_index()
+df_pd 
+#生存率を定義→生存数/サンプル数
+df_pd["surv_rate"] = df_pd["Survived"] / df_pd["flag"] *100
+df_pd
+
+#%%
+plt.figure(figsize=(6, 4))
+
+plt.subplot(1, 2, 1)
+plt.bar(df_pd["Pclass"], df_pd["surv_rate"])
+plt.xticks(rotation=90)
+plt.xlabel("生存率")
+plt.ylabel("人数")
+
+plt.subplot(1, 2, 2)
+plt.bar(df_pd["Pclass"], df_pd["flag"])
+plt.xticks(rotation=90)
+plt.xlabel("サンプル数")
+plt.ylabel("人数")
+
+plt.tight_layout()
+plt.show()
+
+#%%
+
+df_pd = pd.pivot_table(df[["Survived", "SibSp", "flag"]], index="SibSp", aggfunc="sum").reset_index()
+df_pd 
+#生存率を定義→生存数/サンプル数
+df_pd["surv_rate"] = df_pd["Survived"] / df_pd["flag"] *100
+df_pd
+
+#%%
+plt.figure(figsize=(6, 4))
+
+plt.subplot(1, 2, 1)
+plt.bar(df_pd["SibSp"], df_pd["surv_rate"])
+plt.xticks(rotation=90)
+plt.xlabel("生存率")
+plt.ylabel("人数")
+
+plt.subplot(1, 2, 2)
+plt.bar(df_pd["SibSp"], df_pd["flag"])
+plt.xticks(rotation=90)
+plt.xlabel("サンプル数")
+plt.ylabel("人数")
+
+plt.tight_layout()
+plt.show()
+
+#%%
+
+df_pd = pd.pivot_table(df[["Survived", "Fare", "flag"]], index="Fare", aggfunc="sum").reset_index()
+df_pd 
+#生存率を定義→生存数/サンプル数
+df_pd["surv_rate"] = df_pd["Survived"] / df_pd["flag"] *100
+df_pd
+
+#%%
+plt.figure(figsize=(6, 4))
+
+plt.subplot(1, 2, 1)
+plt.bar(df_pd["Fare"], df_pd["surv_rate"])
+plt.xticks(rotation=90)
+plt.xlabel("生存率")
+plt.ylabel("人数")
+
+plt.subplot(1, 2, 2)
+plt.bar(df_pd["Fare"], df_pd["flag"])
+plt.xticks(rotation=90)
+plt.xlabel("サンプル数")
+plt.ylabel("人数")
+
+plt.tight_layout()
+plt.show()
+
+#%%
+
+df_pd = pd.pivot_table(df[["Survived", "Embarked", "flag"]], index="Embarked", aggfunc="sum").reset_index()
+df_pd 
+#生存率を定義→生存数/サンプル数
+df_pd["surv_rate"] = df_pd["Survived"] / df_pd["flag"] *100
+df_pd
+
+#%%
+plt.figure(figsize=(6, 4))
+
+plt.subplot(1, 2, 1)
+plt.bar(df_pd["Embarked"], df_pd["surv_rate"])
+plt.xticks(rotation=90)
+plt.xlabel("生存率")
+plt.ylabel("人数")
+
+plt.subplot(1, 2, 2)
+plt.bar(df_pd["Embarked"], df_pd["flag"])
+plt.xticks(rotation=90)
+plt.xlabel("サンプル数")
+plt.ylabel("人数")
+
+plt.tight_layout()
+plt.show()
+
+
+
